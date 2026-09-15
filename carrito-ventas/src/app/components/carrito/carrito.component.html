@@ -1,0 +1,45 @@
+<div class="card">
+  <h2>🛒 Carrito de compras</h2>
+
+  <div class="mensaje-exito" *ngIf="mensajeCompra">
+    {{ mensajeCompra }}
+  </div>
+
+  <div class="vacio" *ngIf="carrito.length === 0">
+    <div class="icono-vacio">🛍️</div>
+    <p>Tu carrito está vacío</p>
+    <small>Agrega productos desde la lista</small>
+  </div>
+
+  <div class="items" *ngIf="carrito.length > 0">
+    <div class="item" *ngFor="let p of carrito">
+      <div class="item-info">
+        <span class="item-nombre">{{ p.nombre }}</span>
+        <span class="item-precio-unit">{{ p.precio | currency }} c/u</span>
+      </div>
+
+      <div class="item-controles">
+        <button class="btn-cantidad" (click)="cambiar(p.id, -1)">−</button>
+        <span class="cantidad">{{ p.cantidad }}</span>
+        <button class="btn-cantidad" (click)="cambiar(p.id, 1)">+</button>
+      </div>
+
+      <div class="item-subtotal">
+        {{ p.precio | subtotal:p.cantidad | currency }}
+      </div>
+
+      <button class="btn-eliminar" (click)="eliminar(p.id)" title="Eliminar">
+        ✕
+      </button>
+    </div>
+  </div>
+
+  <div class="total" *ngIf="carrito.length > 0">
+    <span>Total</span>
+    <span class="total-valor">{{ total | currency }}</span>
+  </div>
+
+  <button class="btn-comprar" *ngIf="carrito.length > 0" (click)="comprar()">
+    💳 Comprar ahora
+  </button>
+</div>

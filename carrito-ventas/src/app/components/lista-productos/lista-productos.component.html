@@ -1,0 +1,15 @@
+<div class="card">
+  <h2>🛍️ Productos disponibles</h2>
+
+  <div class="lista-productos">
+    <div class="producto" *ngFor="let p of productos">
+      <div class="info">
+        <span class="nombre">{{ p.nombre }}</span>
+        <span class="precio">{{ p.precio | currency }}</span>
+      </div>
+      <button class="btn-agregar" (click)="agregar(p)">
+        + Agregar
+      </button>
+    </div>
+  </div>
+</div>

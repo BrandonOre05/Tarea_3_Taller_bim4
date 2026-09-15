@@ -1,0 +1,75 @@
+.card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 25px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+h2 {
+  margin-bottom: 20px;
+  color: #4a4a8a;
+  font-size: 1.4rem;
+  border-bottom: 2px solid #f0f0f5;
+  padding-bottom: 10px;
+}
+
+.lista-productos {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.producto {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 18px;
+  background: #f8f9ff;
+  border-radius: 10px;
+  transition: all 0.2s ease;
+  border-left: 4px solid #667eea;
+}
+
+.producto:hover {
+  background: #eef0ff;
+  transform: translateX(4px);
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.nombre {
+  font-weight: 600;
+  color: #333;
+  font-size: 1rem;
+}
+
+.precio {
+  color: #667eea;
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+.btn-agregar {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.85rem;
+  transition: all 0.2s ease;
+}
+
+.btn-agregar:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+.btn-agregar:active {
+  transform: scale(0.97);
+}

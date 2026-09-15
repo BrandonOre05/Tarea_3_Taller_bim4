@@ -1,6 +1,5 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Subscription } from 'rxjs';
 import { CarritoService } from '../../services/carrito.service';
 import { Producto } from '../../models/producto.model';
 import { SubtotalPipe } from '../../pipes/subtotal.pipe';
@@ -12,25 +11,13 @@ import { SubtotalPipe } from '../../pipes/subtotal.pipe';
   templateUrl: './carrito.component.html',
   styleUrls: ['./carrito.component.css']
 })
-export class CarritoComponent implements OnInit, OnDestroy {
+export class CarritoComponent {
 
-  carrito: Producto[] = [];
-  total: number = 0;
+  private carritoService = inject(CarritoService);
+
+  carrito$ = this.carritoService.carrito$;
+
   mensajeCompra: string = '';
-  private sub!: Subscription;
-
-  constructor(private carritoService: CarritoService) {}
-
-  ngOnInit(): void {
-    this.sub = this.carritoService.carrito$.subscribe(items => {
-      this.carrito = items;
-      this.total = this.calcularTotal(items);
-    });
-  }
-
-  ngOnDestroy(): void {
-    this.sub.unsubscribe();
-  }
 
   cambiar(id: number, delta: number): void {
     this.carritoService.cambiarCantidad(id, delta);
@@ -44,11 +31,11 @@ export class CarritoComponent implements OnInit, OnDestroy {
     return items.reduce((acc, p) => acc + (p.precio * p.cantidad), 0);
   }
 
-  comprar(): void {
-    if (this.carrito.length === 0) return;
+  comprar(items: Producto[]): void {
+    if (items.length === 0) return;
 
-    const totalCompra = this.total;
-    this.mensajeCompra = `✅ ¡Compra exitosa! Total pagado: ${totalCompra.toLocaleString('es-GT', { style: 'currency', currency: 'GTQ' })}`;
+    const totalCompra = this.calcularTotal(items);
+    this.mensajeCompra = `Compra exitosa! Total pagado: ${totalCompra.toLocaleString('es-GT', { style: 'currency', currency: 'GTQ' })}`;
 
     this.carritoService.vaciar();
 

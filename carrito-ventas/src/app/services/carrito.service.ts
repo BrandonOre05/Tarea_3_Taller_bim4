@@ -20,8 +20,10 @@ export class CarritoService {
     const existe = actual.find(p => p.id === producto.id);
 
     if (existe) {
-      existe.cantidad++;
-      this.carritoSubject.next([...actual]);
+      const actualizado = actual.map(p =>
+        p.id === producto.id ? { ...p, cantidad: p.cantidad + 1 } : p
+      );
+      this.carritoSubject.next(actualizado);
     } else {
       this.carritoSubject.next([...actual, { ...producto, cantidad: 1 }]);
     }
